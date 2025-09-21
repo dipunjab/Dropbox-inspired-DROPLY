@@ -9,7 +9,7 @@ export const files = pgTable("files", {
     path: text("path").notNull(), // /document/project/resume
     size: integer("size").notNull(),
     type: text("type").notNull(), //"Folder",
-
+ 
 
     // storage Information
     fileUrl: text("file_url").notNull(),
