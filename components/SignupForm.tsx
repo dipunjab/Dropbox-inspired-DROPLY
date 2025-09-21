@@ -247,7 +247,7 @@ export default function SignUpForm() {
             <CardFooter className="flex justify-center py-4">
                 <p className="text-sm text-default-600">
                     Already have an account?{" "}
-                    <Link href="/sign-in" className="text-primary hover:underline font-medium"></Link>
+                    <Link href="/sign-in" className="text-primary hover:underline font-medium">Sign In</Link>
                 </p>
 
             </CardFooter>
