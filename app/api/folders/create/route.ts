@@ -2,11 +2,11 @@ import { db } from "@/lib/db";
 import { files } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { eq, and } from "drizzle-orm"
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
 
-export async function POST(requst: NextResponse) {
+export async function POST(requst: NextRequest) {
     try {
         const { userId } = await auth();
         if (!userId) {
@@ -60,6 +60,8 @@ export async function POST(requst: NextResponse) {
         return NextResponse.json({ success: true, message: "Folder created successfully" , folder: newFolder });
 
     } catch (error) {
-
+        console.log("Folder Error", error);
+        return NextResponse.json({error: "failed to create folder"}, {status: 500})
+   
     }
 }
