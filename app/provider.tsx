@@ -2,7 +2,7 @@
 
 import type { ThemeProviderProps } from "next-themes"
 import { ImageKitProvider } from "imagekitio-next";
-import { HeroUIProvider } from "@heroui/system";
+import { HeroUIProvider } from "@heroui/react";
 
 export interface ProviderProps {
     children: React.ReactNode,
