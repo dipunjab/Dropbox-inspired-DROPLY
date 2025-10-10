@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import DashboardContent from "@/components/dashboard/DashboardContent";
 
 export default function DashboardPage() {
@@ -22,36 +21,31 @@ export default function DashboardPage() {
     if (user) fetchFiles();
   }, [user]);
 
-const fetchFiles = async () => {
-  try {
-    setLoading(true);
-    const res = await fetch(`/api/files?userId=${user!.id}`);
-    const data = await res.json();
-
-    const filtered = data.filter((file: any) => !file.isTrash);
-    setFiles(filtered);
-
-  } catch (err) {
-    console.error("Fetch error:", err);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  const fetchFiles = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/files?userId=${user!.id}`);
+      const data = await res.json();
+      const filtered = data.filter((file: any) => !file.isTrash);
+      setFiles(filtered);
+    } catch (err) {
+      console.error("Fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (!isLoaded || !user) return <div>Loading...</div>;
 
   return (
-    <DashboardLayout userId={user.id} currentFolderId={null} onRefresh={fetchFiles}>
-      <DashboardContent
-        files={files}
-        loading={loading}
-        userId={user.id}
-        currentFolderId={null}
-        viewMode={viewMode}
-        setViewMode={setViewMode}
-        onRefresh={fetchFiles}
-      />
-    </DashboardLayout>
+    <DashboardContent
+      files={files}
+      loading={loading}
+      userId={user.id}
+      currentFolderId={null}
+      viewMode={viewMode}
+      setViewMode={setViewMode}
+      onRefresh={fetchFiles}
+    />
   );
 }
