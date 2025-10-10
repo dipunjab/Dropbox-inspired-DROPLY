@@ -85,72 +85,90 @@ export default function FileGrid({ files, onRefresh, userId }: FileGridProps) {
       {files.map((file) => (
         <Card
           key={file.id}
-          className="group hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-[#39FF14]"
+          className="group hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-[#39FF14] relative"
         >
           <CardBody className="p-4">
-            <div className="flex items-start justify-between mb-3">
-              <div className="p-3 bg-gray-50 rounded-lg group-hover:bg-[#39FF14]/10 transition">
-                {getFileIcon(file.type, file.isFolder)}
+            {/* Star indicator - always visible if starred */}
+            {file.isStarred && (
+              <div className="absolute top-2 left-2 z-10">
+                <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
               </div>
+            )}
+
+            {/* More options dropdown - always visible on hover */}
+            <div className="absolute top-2 right-2 z-10">
               <Dropdown>
                 <DropdownTrigger>
                   <Button
                     isIconOnly
                     size="sm"
                     variant="light"
-                    className="opacity-0 group-hover:opacity-100"
+                    className="bg-white/90 hover:bg-white shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     isLoading={loading === file.id}
                   >
-                    <MoreVertical className="w-4 h-4" />
+                    <MoreVertical className="w-4 h-4 text-gray-700" />
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu
                   aria-label="File actions"
-                  className="z-50 bg-white border border-gray-200 rounded-md shadow-md py-1 w-40"
+                  className="bg-white border border-gray-200 rounded-lg shadow-lg py-1 min-w-[160px]"
                 >
+                  <DropdownItem
+                    key="star"
+                    onPress={() => handleStar(file.id)}
+                    className="px-4 py-2 hover:bg-gray-100 text-sm text-gray-700 cursor-pointer flex items-center gap-2"
+                    startContent={<Star className={`w-4 h-4 ${file.isStarred ? 'text-yellow-500 fill-yellow-500' : 'text-gray-400'}`} />}
+                  >
+                    {file.isStarred ? 'Unstar' : 'Add to Starred'}
+                  </DropdownItem>
+                  
                   {!file.isFolder ? (
                     <DropdownItem
                       key="download"
                       onPress={() => handleDownload(file)}
-                      className="px-4 py-2 hover:bg-gray-100 text-sm text-black cursor-pointer"
+                      className="px-4 py-2 hover:bg-gray-100 text-sm text-gray-700 cursor-pointer flex items-center gap-2"
+                      startContent={<File className="w-4 h-4 text-gray-400" />}
                     >
                       Download
                     </DropdownItem>
-                  ):null}
-                  <DropdownItem
-                    key="star"
-                    onPress={() => handleStar(file.id)}
-                    className="px-4 py-2 hover:bg-gray-100 text-sm text-black cursor-pointer"
-                  >
-                    {file.isStarred ? 'Unstar' : 'Star'}
-                  </DropdownItem>
+                  ): null}
+                  
                   <DropdownItem
                     key="trash"
                     onPress={() => handleTrash(file.id)}
-                    className="px-4 py-2 hover:bg-red-50 text-sm text-red-600 cursor-pointer"
+                    className="px-4 py-2 hover:bg-red-50 text-sm text-red-600 cursor-pointer flex items-center gap-2"
+                    startContent={<Trash2 className="w-4 h-4" />}
                   >
                     Move to Trash
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </div>
+
+            {/* File icon */}
+            <div className="flex items-center justify-center mb-3 mt-6">
+              <div className="p-4 bg-gray-50 rounded-lg group-hover:bg-[#39FF14]/10 transition-colors">
+                {getFileIcon(file.type, file.isFolder)}
+              </div>
+            </div>
+
+            {/* File name */}
             {file.isFolder ? (
               <a
                 href={`/dashboard/folder/${file.id}`}
-                className="font-semibold text-black mb-1 truncate hover:underline block"
+                className="font-semibold text-black mb-2 truncate hover:text-[#39FF14] block text-center transition-colors"
               >
                 {file.name}
               </a>
             ) : (
-              <h3 className="font-semibold text-black mb-1 truncate">{file.name}</h3>
+              <h3 className="font-semibold text-black mb-2 truncate text-center">{file.name}</h3>
             )}
-            <div className="flex items-center justify-between text-xs text-gray-600">
-              <span>{file.isFolder ? 'Folder' : formatSize(file.size)}</span>
-              <span>{formatDate(file.createdAt)}</span>
+
+            {/* File info */}
+            <div className="flex items-center justify-between text-xs text-gray-500 pt-2 border-t border-gray-100">
+              <span className="truncate">{file.isFolder ? 'Folder' : formatSize(file.size)}</span>
+              <span className="truncate">{formatDate(file.createdAt)}</span>
             </div>
-            {file.isStarred && (
-              <Star className="w-4 h-4 text-[#39FF14] fill-[#39FF14] absolute top-4 right-4" />
-            )}
           </CardBody>
         </Card>
       ))}

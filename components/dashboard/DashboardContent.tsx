@@ -6,6 +6,7 @@ import QuickActions from "./QuickActions";
 import FileGrid from "./FileGrid";
 import FileList from "./FileList";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 interface DashboardContentProps {
   viewMode: "grid" | "list";
@@ -27,6 +28,12 @@ export default function DashboardContent({
   onRefresh,
 }: DashboardContentProps) {
   const [folderName, setFolderName] = useState<string | null>(null);
+  const pathname = usePathname();
+
+  // Check if we're on a special page (recent, starred, trash)
+  const isSpecialPage = pathname?.includes('/recent') || 
+                        pathname?.includes('/starred') || 
+                        pathname?.includes('/trash');
 
   const totalSize = files.reduce((acc, file) => acc + (file.size || 0), 0);
   const formatSize = (bytes: number) => {
@@ -58,12 +65,20 @@ export default function DashboardContent({
     fetchFolderName();
   }, [currentFolderId, userId]);
 
+  // Get page title based on current route
+  const getPageTitle = () => {
+    if (pathname?.includes('/recent')) return "Recent";
+    if (pathname?.includes('/starred')) return "Starred";
+    if (pathname?.includes('/trash')) return "Trash";
+    return folderName || "My Files";
+  };
+
   return (
     <main className="flex-1 p-6 lg:p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-black">
-            {folderName || "My Files"}
+            {getPageTitle()}
           </h2>
           <p className="text-sm text-gray-600 mt-1">
             {files.length} items • {formatSize(totalSize)}
@@ -97,11 +112,14 @@ export default function DashboardContent({
         </div>
       </div>
 
-      <QuickActions
-        userId={userId}
-        currentFolderId={currentFolderId}
-        onRefresh={onRefresh}
-      />
+      {/* Only show QuickActions on main pages, not on recent/starred/trash */}
+      {!isSpecialPage && (
+        <QuickActions
+          userId={userId}
+          currentFolderId={currentFolderId}
+          onRefresh={onRefresh}
+        />
+      )}
 
       {loading ? (
         <div className="flex items-center justify-center py-12">
@@ -110,7 +128,10 @@ export default function DashboardContent({
       ) : files.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-gray-500">
-            No files or folders yet. Start by uploading or creating a folder!
+            {isSpecialPage 
+              ? `No ${getPageTitle().toLowerCase()} files or folders yet.`
+              : "No files or folders yet. Start by uploading or creating a folder!"
+            }
           </p>
         </div>
       ) : viewMode === "grid" ? (
