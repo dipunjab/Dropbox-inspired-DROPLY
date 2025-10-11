@@ -17,8 +17,6 @@ export default function DashboardSidebar({ sidebarOpen, onClose }: DashboardSide
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const pathname = usePathname();
-
-  console.log(user);
   
 
   useEffect(() => {
@@ -99,7 +97,8 @@ export default function DashboardSidebar({ sidebarOpen, onClose }: DashboardSide
           <Button
             fullWidth
             variant="light"
-            className="justify-start text-red-600 hover:bg-red-50 flex rounded-xl"
+            className="font-extrabold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] to-[#2ecc71]"
+            style={{ WebkitBackgroundClip: "text" }}
             startContent={<LogOut className="w-5 h-5" />}
             onPress={() => signOut()}
           >

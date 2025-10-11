@@ -161,7 +161,7 @@ export default function FileGrid({ files, onRefresh, userId }: FileGridProps) {
                 {file.name}
               </a>
             ) : (
-              <h3 className="font-semibold text-black mb-2 truncate text-center">{file.name}</h3>
+              <a className="font-semibold text-black mb-2 truncate text-center" href={file.fileUrl}>{file.name}</a>
             )}
 
             {/* File info */}

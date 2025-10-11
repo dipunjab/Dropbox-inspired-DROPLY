@@ -1,10 +1,20 @@
 "use client";
-
+import {
+  Folders,
+  Lightning,
+  TrashSimple,
+  Star,
+  ShieldCheck,
+  DeviceMobile,
+  GithubLogo,
+  LinkedinLogo
+} from "@phosphor-icons/react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function HomePage() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const iconColor = "#39FF14";
 
   return (
     <div className="min-h-screen bg-white text-gray-900 antialiased">
@@ -24,7 +34,7 @@ export default function HomePage() {
                 >
                   <div className="w-6 h-6 bg-white/90 rounded-sm" />
                 </div>
-               <span
+                <span
                   className="font-extrabold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-[#39FF14] to-[#2ecc71]"
                   style={{ WebkitBackgroundClip: "text" }}
                 >
@@ -208,7 +218,7 @@ export default function HomePage() {
         <section className="px-6">
           <div className="max-w-6xl mx-auto rounded-xl overflow-hidden border" style={{ borderColor: "rgba(57,255,20,0.08)", boxShadow: "0 20px 80px rgba(57,255,20,0.06)" }}>
             <div className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center text-gray-500">
-              [Dashboard preview — paste screenshot here]
+              <img src="/images/bg.jpg" alt="dash" />
             </div>
           </div>
         </section>
@@ -217,48 +227,112 @@ export default function HomePage() {
         <section id="features" className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <span className="inline-block px-4 py-1 rounded-full" style={{ background: "rgba(57,255,20,0.08)", color: "#39FF14", fontWeight: 600, textTransform: "uppercase", fontSize: 12 }}>
+              <span
+                className="inline-block px-4 py-1 rounded-full"
+                style={{
+                  background: "rgba(57,255,20,0.08)",
+                  color: "#39FF14",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  fontSize: 12,
+                }}
+              >
                 Why Choose Droply
               </span>
-              <h2 className="mt-6 text-3xl md:text-4xl font-extrabold">Features that make you smile</h2>
-              <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Everything you need to manage your files like a pro. Simple, powerful, and blazing fast.</p>
+              <h2 className="mt-6 text-3xl md:text-4xl font-extrabold">
+                Features that make you smile
+              </h2>
+              <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+                Everything you need to manage your files like a pro. Simple,
+                powerful, and blazing fast.
+              </p>
             </div>
 
             <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              <div className="p-6 rounded-2xl border bg-white shadow-sm" style={{ borderColor: "rgba(57,255,20,0.06)" }}>
-                <div className="h-12 w-12 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden" />
+              {/* Smart Organization */}
+              <div
+                className="p-6 rounded-2xl border bg-white shadow-sm"
+                style={{ borderColor: "rgba(57,255,20,0.06)" }}
+              >
+                <div className="h-12 w-12 rounded-lg bg-[#39FF14]/10 flex items-center justify-center">
+                  <Folders size={28} color={iconColor} weight="fill" />
+                </div>
                 <h3 className="mt-4 font-semibold text-lg">Smart Organization</h3>
-                <p className="mt-2 text-gray-600">Create unlimited folders, star your favorites, and find everything instantly.</p>
+                <p className="mt-2 text-gray-600">
+                  Create unlimited folders, star your favorites, and find
+                  everything instantly.
+                </p>
               </div>
 
-              <div className="p-6 rounded-2xl border bg-white shadow-sm" style={{ borderColor: "rgba(57,255,20,0.06)" }}>
-                <div className="h-12 w-12 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden" />
+              {/* Lightning Fast */}
+              <div
+                className="p-6 rounded-2xl border bg-white shadow-sm"
+                style={{ borderColor: "rgba(57,255,20,0.06)" }}
+              >
+                <div className="h-12 w-12 rounded-lg bg-[#39FF14]/10 flex items-center justify-center">
+                  <Lightning size={28} color={iconColor} weight="fill" />
+                </div>
                 <h3 className="mt-4 font-semibold text-lg">Lightning Fast</h3>
-                <p className="mt-2 text-gray-600">Powered by ImageKit CDN for instant uploads and downloads.</p>
+                <p className="mt-2 text-gray-600">
+                  Powered by ImageKit CDN for instant uploads and downloads.
+                </p>
               </div>
 
-              <div className="p-6 rounded-2xl border bg-white shadow-sm" style={{ borderColor: "rgba(57,255,20,0.06)" }}>
-                <div className="h-12 w-12 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden" />
+              {/* Safe Trash System */}
+              <div
+                className="p-6 rounded-2xl border bg-white shadow-sm"
+                style={{ borderColor: "rgba(57,255,20,0.06)" }}
+              >
+                <div className="h-12 w-12 rounded-lg bg-[#39FF14]/10 flex items-center justify-center">
+                  <TrashSimple size={28} color={iconColor} weight="fill" />
+                </div>
                 <h3 className="mt-4 font-semibold text-lg">Safe Trash System</h3>
-                <p className="mt-2 text-gray-600">Accidentally deleted? Restore files from trash or permanently delete when ready.</p>
+                <p className="mt-2 text-gray-600">
+                  Accidentally deleted? Restore files from trash or permanently
+                  delete when ready.
+                </p>
               </div>
 
-              <div className="p-6 rounded-2xl border bg-white shadow-sm" style={{ borderColor: "rgba(57,255,20,0.06)" }}>
-                <div className="h-12 w-12 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden" />
+              {/* Star Your Favorites */}
+              <div
+                className="p-6 rounded-2xl border bg-white shadow-sm"
+                style={{ borderColor: "rgba(57,255,20,0.06)" }}
+              >
+                <div className="h-12 w-12 rounded-lg bg-[#39FF14]/10 flex items-center justify-center">
+                  <Star size={28} color={iconColor} weight="fill" />
+                </div>
                 <h3 className="mt-4 font-semibold text-lg">Star Your Favorites</h3>
-                <p className="mt-2 text-gray-600">Quick access to your most important files.</p>
+                <p className="mt-2 text-gray-600">
+                  Quick access to your most important files.
+                </p>
               </div>
 
-              <div className="p-6 rounded-2xl border bg-white shadow-sm" style={{ borderColor: "rgba(57,255,20,0.06)" }}>
-                <div className="h-12 w-12 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden" />
+              {/* Secure & Private */}
+              <div
+                className="p-6 rounded-2xl border bg-white shadow-sm"
+                style={{ borderColor: "rgba(57,255,20,0.06)" }}
+              >
+                <div className="h-12 w-12 rounded-lg bg-[#39FF14]/10 flex items-center justify-center">
+                  <ShieldCheck size={28} color={iconColor} weight="fill" />
+                </div>
                 <h3 className="mt-4 font-semibold text-lg">Secure & Private</h3>
-                <p className="mt-2 text-gray-600">Protected by Clerk authentication.</p>
+                <p className="mt-2 text-gray-600">
+                  Protected by Clerk authentication.
+                </p>
               </div>
 
-              <div className="p-6 rounded-2xl border bg-white shadow-sm" style={{ borderColor: "rgba(57,255,20,0.06)" }}>
-                <div className="h-12 w-12 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden" />
+              {/* Responsive Design */}
+              <div
+                className="p-6 rounded-2xl border bg-white shadow-sm"
+                style={{ borderColor: "rgba(57,255,20,0.06)" }}
+              >
+                <div className="h-12 w-12 rounded-lg bg-[#39FF14]/10 flex items-center justify-center">
+                  <DeviceMobile size={28} color={iconColor} weight="fill" />
+                </div>
                 <h3 className="mt-4 font-semibold text-lg">Responsive Design</h3>
-                <p className="mt-2 text-gray-600">Access your files from any device — it just works beautifully.</p>
+                <p className="mt-2 text-gray-600">
+                  Access your files from any device — it just works beautifully.
+                </p>
               </div>
             </div>
           </div>
@@ -321,8 +395,8 @@ export default function HomePage() {
                     {i === 0
                       ? "Sign up with your email in seconds. Secure authentication powered by Clerk."
                       : i === 1
-                      ? "Drag and drop your files or click to upload. Create folders to organize everything."
-                      : "Your files are available on any device, anytime. Download, share, or organize on the go."}
+                        ? "Drag and drop your files or click to upload. Create folders to organize everything."
+                        : "Your files are available on any device, anytime. Download, share, or organize on the go."}
                   </p>
                 </div>
               ))}
@@ -347,8 +421,12 @@ export default function HomePage() {
         </section>
 
         {/* Footer */}
-        <footer className="border-t" style={{ borderColor: "rgba(57,255,20,0.06)" }}>
-          <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+        <footer
+          className="border-t"
+          style={{ borderColor: "rgba(57,255,20,0.06)" }}
+        >
+          <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            {/* Brand */}
             <div>
               <div
                 className="text-2xl font-extrabold bg-clip-text text-transparent"
@@ -356,43 +434,46 @@ export default function HomePage() {
                   background: "linear-gradient(90deg,#39FF14 0%, #2ecc71 100%)",
                   WebkitBackgroundClip: "text",
                 }}
-              >                Droply
+              >
+                Droply
               </div>
-              <p className="mt-4 text-gray-600">Modern cloud storage built for speed, security, and simplicity.</p>
+              <p className="mt-2 text-gray-600">
+                Modern cloud storage built for speed, security, and simplicity.
+              </p>
             </div>
 
-            <div>
-              <h4 className="text-[#39FF14] font-semibold mb-4 uppercase text-sm">Product</h4>
-              <ul className="space-y-2 text-gray-600">
-                <li><a href="#features" className="hover:text-[#39FF14]">Features</a></li>
-                <li><a href="#tech" className="hover:text-[#39FF14]">Technology</a></li>
-                <li><a href="#how" className="hover:text-[#39FF14]">How It Works</a></li>
-                <li><a href="/pricing" className="hover:text-[#39FF14]">Pricing</a></li>
-              </ul>
-            </div>
+            {/* Social Links */}
+            <div className="flex items-center gap-6">
+              <a
+                href="https://github.com/dipunjab"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-600 hover:text-[#39FF14] transition-colors"
+              >
+                <GithubLogo size={24} color={iconColor} weight="fill" />
+                <span className="font-medium">GitHub</span>
+              </a>
 
-            <div>
-              <h4 className="text-[#39FF14] font-semibold mb-4 uppercase text-sm">Company</h4>
-              <ul className="space-y-2 text-gray-600">
-                <li><a href="/about" className="hover:text-[#39FF14]">About Us</a></li>
-                <li><a href="/blog" className="hover:text-[#39FF14]">Blog</a></li>
-                <li><a href="/careers" className="hover:text-[#39FF14]">Careers</a></li>
-                <li><a href="/contact" className="hover:text-[#39FF14]">Contact</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-[#39FF14] font-semibold mb-4 uppercase text-sm">Legal</h4>
-              <ul className="space-y-2 text-gray-600">
-                <li><a href="/privacy" className="hover:text-[#39FF14]">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-[#39FF14]">Terms of Service</a></li>
-                <li><a href="/security" className="hover:text-[#39FF14]">Security</a></li>
-              </ul>
+              <a
+                href="https://www.linkedin.com/in/usmanghani-js/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-600 hover:text-[#39FF14] transition-colors"
+              >
+                <LinkedinLogo size={24} color={iconColor} weight="fill" />
+                <span className="font-medium">LinkedIn</span>
+              </a>
             </div>
           </div>
 
-          <div className="border-t" style={{ borderColor: "rgba(57,255,20,0.06)" }}>
-            <div className="max-w-7xl mx-auto px-6 py-6 text-center text-gray-500">© 2025 Droply. Built with care using Next.js, React, and modern web technologies.</div>
+          {/* Bottom Line */}
+          <div
+            className="border-t"
+            style={{ borderColor: "rgba(57,255,20,0.06)" }}
+          >
+            <div className="max-w-7xl mx-auto px-6 py-6 text-center text-gray-500">
+              © 2025 Droply.
+            </div>
           </div>
         </footer>
       </main>

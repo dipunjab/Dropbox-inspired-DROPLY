@@ -89,12 +89,21 @@ export default function FileList({ files, onRefresh, userId }: FileListProps) {
         <div className="col-span-2">Actions</div>
       </div>
       {files.map((file) => (
-        <Card key={file.id}  className="hover:bg-gray-50 border border-gray-200">
+        <Card key={file.id} className="hover:bg-gray-50 border border-gray-200">
           <CardBody className="p-4">
             <div className="grid grid-cols-12 gap-4 items-center">
               <div className="col-span-5 flex items-center gap-3">
                 {getFileIcon(file.type, file.isFolder)}
-                <span className="font-medium text-black truncate">{file.name}</span>
+                {file.isFolder ? (
+                  <a
+                    href={`/dashboard/folder/${file.id}`}
+                    className="font-medium text-black truncate"
+                  >
+                    {file.name}
+                  </a>
+                ) : (
+                  <a className="font-medium text-black truncate" href={file.fileUrl}>{file.name}</a>
+                )}
                 {file.isStarred && <Star className="w-4 h-4 text-[#39FF14] fill-[#39FF14]" />}
               </div>
               <div className="col-span-2 text-sm text-gray-600">
@@ -103,9 +112,9 @@ export default function FileList({ files, onRefresh, userId }: FileListProps) {
               <div className="col-span-3 text-sm text-gray-600">{formatDate(file.createdAt)}</div>
               <div className="col-span-2 flex items-center gap-2">
                 {!file.isFolder && (
-                  <Button 
-                    isIconOnly 
-                    size="sm" 
+                  <Button
+                    isIconOnly
+                    size="sm"
                     variant="light"
                     onPress={() => handleDownload(file)}
                   >
@@ -114,9 +123,9 @@ export default function FileList({ files, onRefresh, userId }: FileListProps) {
                 )}
                 <Dropdown>
                   <DropdownTrigger>
-                    <Button 
-                      isIconOnly 
-                      size="sm" 
+                    <Button
+                      isIconOnly
+                      size="sm"
                       variant="light"
                       isLoading={loading === file.id}
                     >

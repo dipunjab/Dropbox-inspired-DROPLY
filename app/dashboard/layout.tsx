@@ -1,28 +1,30 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 import { ReactNode, useState } from "react";
 
 export default function DashboardLayout({
-  userId,
   currentFolderId,
   onRefresh,
   children,
 }: {
-  userId: string;
   currentFolderId: string | null;
   onRefresh: () => void;
   children: ReactNode;
 }) {
+  const { user } = useUser(); 
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  if (!user) return null; 
 
   return (
     <div className="min-h-screen bg-white">
       <DashboardHeader
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
-        userId={userId}
+        userId={user.id} 
         currentFolderId={currentFolderId}
         onRefresh={onRefresh}
       />

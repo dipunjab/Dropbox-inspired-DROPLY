@@ -5,6 +5,7 @@ import { Upload, FolderPlus, Search, Menu, X } from 'lucide-react';
 import { Button } from '@heroui/react';
 import CreateFolderModal from './CreateFolderModal';
 import UploadModal from './UploadModal';
+import SearchBar from '../SearchBar';
 
 interface DashboardHeaderProps {
   sidebarOpen: boolean;
@@ -23,12 +24,6 @@ export default function DashboardHeader({
 }: DashboardHeaderProps) {
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [folderModalOpen, setFolderModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Searching for:', searchQuery);
-  };
 
   return (
     <>
@@ -46,18 +41,11 @@ export default function DashboardHeader({
             </h1>
           </div>
 
-          <form onSubmit={handleSearch} className="flex-1 max-w-2xl mx-8 hidden md:block">
+          <div className="flex-1 max-w-2xl mx-8 hidden md:block">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search files and folders..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-[#39FF14] focus:ring-2 focus:ring-[#39FF14] transition"
-              />
+              <SearchBar userId={userId} />
             </div>
-          </form>
+          </div>
 
           <div className="flex items-center gap-2">
             <Button

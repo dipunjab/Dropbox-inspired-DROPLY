@@ -76,11 +76,7 @@ if (!user) {
 
 
   return (
-    <DashboardLayout
-      userId={user.id}
-      currentFolderId={folderId as string}
-      onRefresh={fetchFiles}
-    >
+
       <div className="px-4 sm:px-6 lg:px-8">
         <Breadcrumb path={breadcrumbPath} />
         <DashboardContent
@@ -93,6 +89,5 @@ if (!user) {
           onRefresh={fetchFiles}
         />
       </div>
-    </DashboardLayout>
   );
 }
