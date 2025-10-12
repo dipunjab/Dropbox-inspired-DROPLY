@@ -3,7 +3,7 @@ import { files } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, params:any ) {
   const folderId = params.id;
   const userId = req.nextUrl.searchParams.get("userId");
 
