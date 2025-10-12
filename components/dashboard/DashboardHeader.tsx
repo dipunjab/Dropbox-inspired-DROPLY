@@ -12,7 +12,7 @@ interface DashboardHeaderProps {
   setSidebarOpen: (open: boolean) => void;
   userId: string;
   currentFolderId: string | null;
-  onRefresh: () => void;
+  onRefresh: () => void | undefined;
 }
 
 export default function DashboardHeader({ 

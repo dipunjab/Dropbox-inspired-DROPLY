@@ -53,7 +53,10 @@ export default function DashboardContent({
 
       try {
         const res = await fetch(`/api/folders/${currentFolderId}?userId=${userId}`);
+        console.log(res);
+        
         if (!res.ok) throw new Error("Failed to fetch folder");
+        
         const folder = await res.json();
         setFolderName(folder.name);
       } catch (err) {

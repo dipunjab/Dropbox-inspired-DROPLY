@@ -3,21 +3,19 @@
 import { useUser } from "@clerk/nextjs";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
-import { ReactNode, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 
 export default function DashboardLayout({
-  currentFolderId,
-  onRefresh,
+
   children,
 }: {
-  currentFolderId: string | null;
-  onRefresh: () => void;
   children: ReactNode;
 }) {
   const { user } = useUser(); 
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   if (!user) return null; 
+  
 
   return (
     <div className="min-h-screen bg-white">
@@ -25,8 +23,8 @@ export default function DashboardLayout({
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         userId={user.id} 
-        currentFolderId={currentFolderId}
-        onRefresh={onRefresh}
+        currentFolderId={null}
+        onRefresh={() => {}}
       />
       <div className="flex pt-16">
         <DashboardSidebar sidebarOpen={sidebarOpen} />
