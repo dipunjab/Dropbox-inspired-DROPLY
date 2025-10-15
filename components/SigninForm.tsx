@@ -186,7 +186,7 @@ export default function SignInForm() {
           {/* Divider + forgot */ }
           <div className="mt-6 flex items-center justify-between text-sm text-gray-500">
             <Link href="/forgot-password" className="hover:text-[#39FF14]">
-              Forgot password?
+              {/* Forgot password? */}
             </Link>
             <Link href="/sign-up" className="text-[#39FF14] hover:underline font-semibold">
               Create account

@@ -12,7 +12,7 @@ export default function DashboardLayout({
   children: ReactNode;
 }) {
   const { user } = useUser(); 
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (!user) return null; 
   
@@ -26,7 +26,7 @@ export default function DashboardLayout({
         currentFolderId={null}
         onRefresh={() => {}}
       />
-      <div className="flex pt-16">
+      <div className="flex">
         <DashboardSidebar sidebarOpen={sidebarOpen} />
         <main className="flex-1 p-4">{children}</main>
       </div>
