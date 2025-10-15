@@ -41,34 +41,42 @@ export default function SignUpForm() {
   const inputBase =
     "block w-full rounded-md border px-3 py-2 pl-10 pr-10 text-sm bg-white text-black placeholder:text-gray-400 transition focus:outline-none";
 
-  const onSubmit = async (data: SignUpData) => {
-    if (!isLoaded || isSubmitting) return;
-    setIsSubmitting(true);
-    setAuthError(null);
+const onSubmit = async (data: SignUpData) => {
+  if (!isLoaded || isSubmitting) return;
+  setIsSubmitting(true);
+  setAuthError(null);
+  setVerificationError(null);
 
-    try {
-      // create sign up
-      const result = await signUp.create({
-        emailAddress: data.email,
-        password: data.password,
-      });
+  try {
+    const tCreateStart = Date.now();
+    const result = await signUp.create({
+      emailAddress: data.email,
+      password: data.password,
+    });
+    console.log("signUp.create ms:", Date.now() - tCreateStart);
 
-      // prepare email verification (code)
-      await signUp.prepareEmailAddressVerification({
-        strategy: "email_code",
-      });
+    setVerifying(true);
+    setResendCount(0);
 
-      // show verification UI
-      setVerifying(true);
-      setResendCount(0);
-    } catch (error: any) {
-      const message =
-        error?.errors?.[0]?.message || error?.longMessage || error?.message || "Signup failed.";
-      setAuthError(String(message));
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    (async () => {
+      try {
+        await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+      } catch (err: any) {
+        console.warn("prepareEmailAddressVerification failed:", err);
+        setVerificationError(
+          err?.errors?.[0]?.message || err?.longMessage || err?.message || "Failed to send code. Please try Resend."
+        );
+      }
+    })();
+
+  } catch (error: any) {
+    const message =
+      error?.errors?.[0]?.message || error?.longMessage || error?.message || "Signup failed.";
+    setAuthError(String(message));
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleVerificationSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
